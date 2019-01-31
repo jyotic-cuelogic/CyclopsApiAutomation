@@ -15,7 +15,7 @@ public class TestBase {
 			prop = new Properties();
 
 			FileInputStream ip = new FileInputStream(System.getProperty("user.dir") + File.separator + "src"
-					+ File.separator + "main" + File.separator + "java" + File.separator + "com" + File.separator + "qa"
+					+ File.separator + "main" + File.separator + "java" + File.separator + "cyclops" 
 					+ File.separator + "config" + File.separator + "config.properties");
 			prop.load(ip);
 
