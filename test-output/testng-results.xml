@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2731" started-at="2019-01-29T14:20:23Z" finished-at="2019-01-29T14:20:26Z">
+  <suite name="Default suite" duration-ms="2207" started-at="2019-01-31T10:59:23Z" finished-at="2019-01-31T10:59:25Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="2731" started-at="2019-01-29T14:20:23Z" finished-at="2019-01-29T14:20:26Z">
-      <class name="com.qa.tests.GetAPITest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.qa.tests.GetAPITest@51565ec2]" name="setup" is-config="true" duration-ms="14" started-at="2019-01-29T14:20:23Z" finished-at="2019-01-29T14:20:23Z">
+    <test name="Default test" duration-ms="2207" started-at="2019-01-31T10:59:23Z" finished-at="2019-01-31T10:59:25Z">
+      <class name="cyclops.tests.CyclopsGetAPITest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:cyclops.tests.CyclopsGetAPITest@51565ec2]" name="setup" is-config="true" duration-ms="12" started-at="2019-01-31T10:59:23Z" finished-at="2019-01-31T10:59:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="getAPITest()[pri:0, instance:com.qa.tests.GetAPITest@51565ec2]" name="getAPITest" duration-ms="2656" started-at="2019-01-29T14:20:23Z" finished-at="2019-01-29T14:20:26Z">
+        <test-method status="PASS" signature="getAPITest()[pri:0, instance:cyclops.tests.CyclopsGetAPITest@51565ec2]" name="getAPITest" duration-ms="2141" started-at="2019-01-31T10:59:23Z" finished-at="2019-01-31T10:59:25Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getAPITest -->
-      </class> <!-- com.qa.tests.GetAPITest -->
+      </class> <!-- cyclops.tests.CyclopsGetAPITest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
