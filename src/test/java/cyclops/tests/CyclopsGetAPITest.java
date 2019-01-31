@@ -1,13 +1,20 @@
 package cyclops.tests;
 
 import java.io.IOException;
+import java.util.HashMap;
 
+import org.apache.http.Header;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import cyclops.base.TestBase;
 import cyclops.client.Restclient;
+import cyclops.util.TestUtil;
 
 public class CyclopsGetAPITest extends TestBase {
 	TestBase testbase;
@@ -15,9 +22,8 @@ public class CyclopsGetAPITest extends TestBase {
 	String URL1;
 	String apiurl;
 	String serviceurl;
-	String     URL2;
-	String CompareURL;
-	       
+	CloseableHttpResponse closeableHttpResponse;
+
 	@BeforeMethod
 
 	public void setup() throws ClientProtocolException, IOException {
@@ -25,38 +31,50 @@ public class CyclopsGetAPITest extends TestBase {
 		testbase = new TestBase();
 		serviceurl = prop.getProperty("URL");
 		apiurl = prop.getProperty("serviceURL");
-		
-		CompareURL=prop.getProperty("compareurl");
-
 		URL1 = serviceurl + apiurl;
-		URL2 = serviceurl + CompareURL;
 
 	}
 
 	@Test
-public void getAPITest() throws ClientProtocolException, IOException {
+	public void getAPITest() throws ClientProtocolException, IOException {
 
 		Restclient restclient = new Restclient();
 
-	String a=	restclient.get(URL1);
+		closeableHttpResponse = restclient.get(URL1);
+
+		int StatusCode = closeableHttpResponse.getStatusLine().getStatusCode();
+		
+		System.out.println("status code" +" " + StatusCode);
+		Assert.assertEquals(StatusCode,RESPONSE_STATUS_CODE_200,"Status code is not 200");
 		
 		
 		
-		System.out.println("running second API");
+
+		String responseString = EntityUtils.toString(closeableHttpResponse.getEntity(), "UTF-8");
+
+		JSONObject responseJson = new JSONObject(responseString);
 		
-	String b=	restclient.get(URL2);
-	
-	if(a.equals(b)) {
+		//single value assertion
+		String perPagevalue= TestUtil.getValueByJPath(responseJson,"/per_page");
+		System.out.println("per page value is" + perPagevalue);
+	     Assert.assertEquals(Integer.parseInt(perPagevalue), 3,"test cases failed");
 		
-		System.out.println("test is passed");
 		
-	}
-	
-	else
-	{
-		System.out.println("test is failed");
-	}
+		//get the value from JSON array
+
+		System.out.println("Response JSON from API" + responseJson);
+
+		Header[] headersArray = closeableHttpResponse.getAllHeaders();
+
+		HashMap<String, String> allHeaders = new HashMap<String, String>();
+
+		for (Header header : headersArray) {
+
+			allHeaders.put(header.getName(), header.getValue());
+
+		}
+
+		System.out.println("Headers Array-->>" + allHeaders);
 
 	}
-
 }

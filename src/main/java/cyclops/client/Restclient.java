@@ -2,6 +2,7 @@ package cyclops.client;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.Header;
 import org.apache.http.client.ClientProtocolException;
@@ -13,8 +14,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 public class Restclient {
+	
+	//Get method without headers
 
-	public String get(String url) throws ClientProtocolException, IOException {
+	public CloseableHttpResponse get(String url) throws ClientProtocolException, IOException {
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -22,29 +25,32 @@ public class Restclient {
 
 		CloseableHttpResponse closeableHttpResponse = httpClient.execute(httpget);
 
-		int StatusCode = closeableHttpResponse.getStatusLine().getStatusCode();
+		return closeableHttpResponse;}	
+		
+		
+		//Get method with headers
+		
+		public CloseableHttpResponse get(String url, HashMap <String,String> headerMap) throws ClientProtocolException, IOException {
 
-		System.out.println("status code" + StatusCode);
+			CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		String responseString = EntityUtils.toString(closeableHttpResponse.getEntity(), "UTF-8");
+			HttpGet httpget = new HttpGet(url);
 
-		JSONObject responsejson = new JSONObject(responseString);
+			for(Map.Entry <String, String> entry :headerMap.entrySet()) {
+				
+				
+				
+			}
+			
+			
+			
+			CloseableHttpResponse closeableHttpResponse = httpClient.execute(httpget);
 
-		System.out.println("Response JSON from API" + responsejson);
-
-		Header[] headersArray = closeableHttpResponse.getAllHeaders();
-
-		HashMap<String, String> allHeaders = new HashMap<String, String>();
-
-		for (Header header : headersArray) {
-
-			allHeaders.put(header.getName(), header.getValue());
-
-		}
-
-		System.out.println("Headers Array-->>" + allHeaders);
-
-		return responseString;
+			return closeableHttpResponse;
+			
+			
+		
+		
 	}
 
 }
